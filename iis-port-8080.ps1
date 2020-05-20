@@ -1,9 +1,10 @@
 # Install IIS and set the resulting page content to the computer name
 # from: https://raw.githubusercontent.com/Azure/azure-docs-powershell-samples/master/application-gateway/iis/appgatewayurl.ps1
+# modified to make idempotent by adding -Force to the New-Item calls
 Add-WindowsFeature Web-Server
 Add-Content -Path "C:\inetpub\wwwroot\Default.htm" -Value $($env:computername)
-New-Item -ItemType directory -Path "C:\inetpub\wwwroot\images"
-New-Item -ItemType directory -Path "C:\inetpub\wwwroot\video"
+New-Item -Force -ItemType directory -Path "C:\inetpub\wwwroot\images"
+New-Item -Force -ItemType directory -Path "C:\inetpub\wwwroot\video"
 $imagevalue = "Images: " + $($env:computername)
 Add-Content -Path "C:\inetpub\wwwroot\images\test.htm" -Value $imagevalue
 $videovalue = "Video: " + $($env:computername)
